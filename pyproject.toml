@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "astronomical-simulation-backend"
+version = "0.1.0"
+description = "Backend for the Astronomical Simulation webapp"
+authors = ["otaviohrg <otaviohrguimaraes@gmail.com>"]
+readme = "README.md"
+packages = [{include = "astronomical_simulation_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+dependency-injector = "^4.40.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
