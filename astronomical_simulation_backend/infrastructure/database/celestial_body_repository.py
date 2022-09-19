@@ -12,7 +12,7 @@ class CelestialBodyNotFound(Exception):
 
 
 @dataclass
-class TodoEntryPickleRepository(ICelestialBodyRepository):
+class CelestialBodyPickleRepository(ICelestialBodyRepository):
     storage_dir: str
 
     def get(self, entry_id: str) -> CelestialBody:
