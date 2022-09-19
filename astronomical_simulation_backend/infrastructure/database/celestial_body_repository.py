@@ -39,4 +39,3 @@ class TodoEntryPickleRepository(ICelestialBodyRepository):
                 else:
                     entries.append(entry)
         return entries
-    
