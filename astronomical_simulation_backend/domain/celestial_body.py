@@ -43,4 +43,3 @@ class CelestialBody:
 
     def add_point_to_trajectory(self, point: Tuple[float, float]) -> None:
         self.position_list.append(point)
-        
