@@ -1,18 +1,20 @@
-from dependency_injector import providers, containers
+from dependency_injector import containers, providers
 
-from astronomical_simulation_backend.application.celestial_body_service import CelestialBodyService
-from astronomical_simulation_backend.infrastructure.database.celestial_body_repository import CelestialBodyPickleRepository
+from astronomical_simulation_backend.application.celestial_body_service import (
+    CelestialBodyService,
+)
+from astronomical_simulation_backend.infrastructure.database.celestial_body_repository import (
+    CelestialBodyPickleRepository,
+)
 
 
 class ApplicationContainer(containers.DeclarativeContainer):
     configuration = providers.Configuration()
 
-    todo_entry_repository = providers.Singleton(
-        CelestialBodyPickleRepository,
-        storage_dir=configuration.storage_dir
+    celestial_body_repository = providers.Singleton(
+        CelestialBodyPickleRepository, storage_dir=configuration.storage_dir
     )
 
-    todo_service = providers.Factory(
-        CelestialBodyService,
-        todo_entry_repository
+    celestial_body_service = providers.Factory(
+        CelestialBodyService, celestial_body_repository
     )

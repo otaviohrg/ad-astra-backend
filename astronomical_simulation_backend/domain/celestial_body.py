@@ -1,8 +1,7 @@
 import uuid
+from dataclasses import dataclass
 from datetime import datetime
-from dataclasses import dataclass, field
-
-from typing import List, Set, Tuple
+from typing import Dict, List, Tuple
 
 
 @dataclass
@@ -20,26 +19,20 @@ class CelestialBody:
     position_list: List[Tuple[float, float]]
 
     @classmethod
-    def create_from_content(cls,
-                            name: str,
-                            mass: float,
-                            angular_speed: float,
-                            x_coordinate: float,
-                            y_coordinate: float,
-                            x_speed: float,
-                            y_speed: float,
-                            radius: float) -> "CelestialBody":
-        return cls(id=str(uuid.uuid4()),
-                   created_at=datetime.utcnow(),
-                   name=name,
-                   mass=mass,
-                   angular_speed=angular_speed,
-                   x_coordinate=x_coordinate,
-                   y_coordinate=y_coordinate,
-                   x_speed=x_speed,
-                   y_speed=y_speed,
-                   radius=radius,
-                   position_list=[])
+    def create_from_content(cls, content: Dict[str, str]) -> "CelestialBody":
+        return cls(
+            id=str(uuid.uuid4()),
+            created_at=datetime.utcnow(),
+            name=content["name"],
+            mass=float(content["mass"]),
+            angular_speed=float(content["angular_speed"]),
+            x_coordinate=float(content["x_coordinate"]),
+            y_coordinate=float(content["y_coordinate"]),
+            x_speed=float(content["x_speed"]),
+            y_speed=float(content["y_speed"]),
+            radius=float(content["radius"]),
+            position_list=[],
+        )
 
     def add_point_to_trajectory(self, point: Tuple[float, float]) -> None:
         self.position_list.append(point)
