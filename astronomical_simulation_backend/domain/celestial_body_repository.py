@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from astronomical_simulation_backend.domain.celestial_body import CelestialBody
 
@@ -14,7 +14,7 @@ class ICelestialBodyRepository(ABC):
     def remove(self, entry_id: str) -> None:
         ...
 
-    def edit(self, entry_id: str) -> None:
+    def edit(self, entry: Dict[str, str]) -> None:
         ...
 
     def get_all(self, search: Optional[str]) -> List[CelestialBody]:

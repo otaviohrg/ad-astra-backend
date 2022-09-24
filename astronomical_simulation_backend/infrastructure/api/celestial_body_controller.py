@@ -39,7 +39,7 @@ async def add_celestial_body(content: Dict[str, str]) -> str:
     return celestial_body_service.add_entry(content)
 
 
-@router.patch("/edit_celestial_body/")
+@router.patch("/remove_celestial_body/")
 async def remove_celestial_body(body: Dict[str, str]) -> None:
     return celestial_body_service.remove_entry(body["id"])
 

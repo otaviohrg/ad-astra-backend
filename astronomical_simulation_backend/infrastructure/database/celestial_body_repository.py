@@ -43,11 +43,11 @@ class CelestialBodyPickleRepository(ICelestialBodyRepository):
             entry_id = content["id"]
         except Exception:
             raise EntryIdNotIncluded()
+        with open(Path(self.storage_dir) / entry_id, mode="rb") as entry_file:
+            entry: CelestialBody = pickle.load(entry_file)
+        entry.update_from_content(content)
         with open(Path(self.storage_dir) / entry_id, mode="wb") as entry_file:
-            entry = pickle.load(entry_file)
-            P
-
-
+            pickle.dump(entry, entry_file)
 
     def get_all(self, search: Optional[str]) -> List[CelestialBody]:
         entries: List[CelestialBody] = []

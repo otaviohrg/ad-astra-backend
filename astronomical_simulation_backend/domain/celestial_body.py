@@ -34,5 +34,22 @@ class CelestialBody:
             position_list=[],
         )
 
+    def update_from_content(self, content: Dict[str, str]) -> None:
+        for key in content.keys():
+            if key == "name":
+                self.name = content[key]
+            if key == "mass":
+                self.mass = float(content[key])
+            if key == "x_coordinate":
+                self.x_coordinate = float(content[key])
+            if key == "y_coordinate":
+                self.y_coordinate = float(content[key])
+            if key == "x_speed":
+                self.x_speed = float(content[key])
+            if key == "y_speed":
+                self.y_speed = float(content[key])
+            if key == "radius":
+                self.radius = float(content[key])
+
     def add_point_to_trajectory(self, point: Tuple[float, float]) -> None:
         self.position_list.append(point)
