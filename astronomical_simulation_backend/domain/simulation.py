@@ -14,7 +14,6 @@ class Simulation:
     k: float
     degree: float
     status: str
-    celestial_bodies: List[CelestialBody]
 
     @classmethod
     def create_system(cls, params: Dict[str, str]) -> "Simulation":
@@ -23,23 +22,19 @@ class Simulation:
             created_at=datetime.utcnow(),
             k=float(params["k"]),
             degree=float(params["degree"]),
-            status="STOPPED",
-            celestial_bodies=[],
+            status="STOPPED"
         )
 
-    def add_celestial_body(self, celestial_body: CelestialBody) -> None:
-        self.celestial_bodies.append(celestial_body)
-
-    def update(self) -> None:
-        for body in self.celestial_bodies:
-            body.set_velocity(self.celestial_bodies, self.degree, self.k)
+    def update(self, celestial_bodies: List[CelestialBody]) -> None:
+        for body in celestial_bodies:
+            body.set_velocity(celestial_bodies, self.degree, self.k)
             body.move()
 
-    def run(self, duration: float) -> List[CelestialBody]:
+    def run(self, celestial_bodies: List[CelestialBody], duration: float) -> List[CelestialBody]:
         t = 0.0
         while t < duration:
-            self.update()
-            for body in self.celestial_bodies:
+            self.update(celestial_bodies)
+            for body in celestial_bodies:
                 body.add_position_to_trajectory()
             t += SAMPLE_TIME
-        return self.celestial_bodies
+        return celestial_bodies
