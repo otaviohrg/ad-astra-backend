@@ -22,11 +22,8 @@ class CelestialBodyService:
     def edit_entry(self, content: Dict[str, str]):
         self.celestial_body_repository.edit(content)
 
-    def add_point_to_trajectory(self, entry_id: str) -> None:
-        entry = self.celestial_body_repository.get(entry_id)
-        entry_x = entry.x_coordinate
-        entry_y = entry.y_coordinate
-        entry.add_point_to_trajectory((entry_x, entry_y))
+    def add_position_to_trajectory(self, entry_id: str) -> None:
+        self.celestial_body_repository.get(entry_id).add_position_to_trajectory()
 
     def get_all(self, search: Optional[str] = None) -> List[CelestialBody]:
         return self.celestial_body_repository.get_all(search)
