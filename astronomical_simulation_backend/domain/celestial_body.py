@@ -86,8 +86,17 @@ class CelestialBody:
         v_res_x = (self.mass * self.x_speed + other.mass * other.x_speed)/(self.mass+other.mass)
         v_res_y = (self.mass * self.y_speed + other.mass * other.y_speed) / (self.mass + other.mass)
 
-        self.x_speed = v_res_x
-        other.x_speed = v_res_x
-        self.y_speed = v_res_y
-        other.y_speed = v_res_y
+        self.x_speed = other.x_speed = v_res_x
+        self.y_speed = other.y_speed = v_res_y
 
+    def result_force(self, bodies: List['CelestialBody'], degree: float, k: float):
+        total_fx = total_fy = 0.0
+        for other in bodies:
+            # Don't calculate the body's attraction to itself
+            if self is other:
+                continue
+            fx, fy = self.compute_attraction(other, degree, k)
+            total_fx += fx
+            total_fy += fy
+        # Record the total force exerted.
+        return total_fx, total_fy
