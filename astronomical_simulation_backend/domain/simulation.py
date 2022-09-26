@@ -2,11 +2,9 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Dict
+from astronomical_simulation_backend.domain.constants import SAMPLE_TIME
 
 from astronomical_simulation_backend.domain.celestial_body import CelestialBody
-from astronomical_simulation_backend.application.celestial_body_service import (
-    CelestialBodyService
-)
 
 
 @dataclass
@@ -43,4 +41,5 @@ class Simulation:
             self.update()
             for body in self.celestial_bodies:
                 body.add_position_to_trajectory()
+            t += SAMPLE_TIME
         return self.celestial_bodies

@@ -3,7 +3,7 @@ import math
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, List, Tuple
-from astronomical_simulation_backend.domain.constants import *
+from astronomical_simulation_backend.domain.constants import SAMPLE_TIME
 
 
 @dataclass
