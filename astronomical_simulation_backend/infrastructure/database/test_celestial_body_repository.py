@@ -28,6 +28,7 @@ def test_add_and_get(repository: CelestialBodyPickleRepository):
         "x_speed": "20",
         "y_speed": "-30",
         "radius": "150.00",
+        "simulation_id": "id"
     }
     entry = CelestialBody.create_from_content(test_input)
     repository.add(entry)

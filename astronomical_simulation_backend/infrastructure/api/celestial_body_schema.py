@@ -14,3 +14,4 @@ class CelestialBodySchema(BaseModel):
     y_speed: float
     radius: float
     position_list: List[Tuple[float, float]]
+    simulation_id: str

@@ -19,6 +19,7 @@ class CelestialBody:
     y_speed: float
     radius: float
     position_list: List[Tuple[float, float]]
+    simulation_id: str
 
     @classmethod
     def create_from_content(cls, content: Dict[str, str]) -> "CelestialBody":
@@ -34,6 +35,7 @@ class CelestialBody:
             y_speed=float(content["y_speed"]),
             radius=float(content["radius"]),
             position_list=[],
+            simulation_id=content["simulation_id"]
         )
 
     def update_from_content(self, content: Dict[str, str]) -> None:
