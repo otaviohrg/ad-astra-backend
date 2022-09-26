@@ -53,8 +53,8 @@ class CelestialBody:
             if key == "radius":
                 self.radius = float(content[key])
 
-    def add_point_to_trajectory(self, point: Tuple[float, float]) -> None:
-        self.position_list.append(point)
+    def add_position_to_trajectory(self) -> None:
+        self.position_list.append((self.x_coordinate, self.y_coordinate))
 
     def compute_attraction(self, other: 'CelestialBody', degree: float, k: float):
 
