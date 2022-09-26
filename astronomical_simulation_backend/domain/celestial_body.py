@@ -107,3 +107,9 @@ class CelestialBody:
         fx, fy = self.result_force(bodies, deg, k)
         self.x_speed += fx / self.mass * dt
         self.y_speed += fy / self.mass * dt
+
+    def move(self):
+        dt = SAMPLE_TIME
+        self.x_coordinate += self.x_speed * dt
+        self.y_coordinate += self.x_speed * dt
+        
