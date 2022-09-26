@@ -112,4 +112,3 @@ class CelestialBody:
         dt = SAMPLE_TIME
         self.x_coordinate += self.x_speed * dt
         self.y_coordinate += self.x_speed * dt
-        
