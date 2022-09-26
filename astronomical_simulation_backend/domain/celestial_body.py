@@ -1,4 +1,5 @@
 import uuid
+import math
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, List, Tuple
@@ -53,3 +54,40 @@ class CelestialBody:
 
     def add_point_to_trajectory(self, point: Tuple[float, float]) -> None:
         self.position_list.append(point)
+
+    def compute_attraction(self, other: 'CelestialBody', degree: float, k: float):
+
+        if self is other:
+            raise ValueError("Attraction of object %r to itself requested"
+                             % self.name)
+
+        # Compute the distance of the other body.
+        sx, sy = self.x_coordinate, self.y_coordinate
+        ox, oy = other.x_coordinate, other.y_coordinate
+        dx = (ox - sx)
+        dy = (oy - sy)
+        d = math.sqrt(dx ** 2 + dy ** 2)
+
+        # Stop in case of collision, considered as perfectly inelastic
+        if d <= self.radius + other.radius:
+            self.collide(other)
+            return 0.0, 0.0
+
+        # Compute the force of attraction
+        f = k * self.mass * other.mass / (d ** degree)
+
+        # Compute the direction of the force.
+        theta = math.atan2(dy, dx)
+        fx = math.cos(theta) * f
+        fy = math.sin(theta) * f
+        return fx, fy
+
+    def collide(self, other: 'CelestialBody') -> None:
+        v_res_x = (self.mass * self.x_speed + other.mass * other.x_speed)/(self.mass+other.mass)
+        v_res_y = (self.mass * self.y_speed + other.mass * other.y_speed) / (self.mass + other.mass)
+
+        self.x_speed = v_res_x
+        other.x_speed = v_res_x
+        self.y_speed = v_res_y
+        other.y_speed = v_res_y
+
