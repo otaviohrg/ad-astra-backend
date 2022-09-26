@@ -3,6 +3,7 @@ import math
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, List, Tuple
+from astronomical_simulation_backend.domain.constants import *
 
 
 @dataclass
@@ -100,3 +101,9 @@ class CelestialBody:
             total_fy += fy
         # Record the total force exerted.
         return total_fx, total_fy
+
+    def set_velocity(self, bodies, deg, k):
+        dt = SAMPLE_TIME
+        fx, fy = self.result_force(bodies, deg, k)
+        self.x_speed += fx / self.mass * dt
+        self.y_speed += fy / self.mass * dt
