@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from dependency_injector.wiring import Provide
 from fastapi import APIRouter
@@ -52,8 +52,8 @@ async def create_simulation(params: Dict[str, str]) -> str:
 
 
 @router.patch("/delete_simulation/")
-async def delete_simulation(params: Dict[str, str]) -> None:
-    return simulation_service.remove_entry(params["id"])
+async def delete_simulation(simulation_id: str) -> None:
+    return simulation_service.remove_entry(simulation_id)
 
 
 @router.patch("/edit_celestial_body/")
