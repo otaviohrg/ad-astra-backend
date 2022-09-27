@@ -19,12 +19,12 @@ class ApplicationContainer(containers.DeclarativeContainer):
 
     celestial_body_repository = providers.Singleton(
         CelestialBodyPickleRepository,
-        storage_dir=configuration.storage_dir + "/celestial_bodies"
+        storage_dir=configuration.storage_dir
     )
 
     simulation_repository = providers.Singleton(
         SimulationPickleRepository,
-        storage_dir=configuration.storage_dir + "/simulation"
+        storage_dir=configuration.storage_dir
     )
 
     celestial_body_service = providers.Factory(
