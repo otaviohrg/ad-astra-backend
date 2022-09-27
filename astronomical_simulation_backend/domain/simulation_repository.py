@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Dict
+from typing import Dict, Optional, List
 
 from astronomical_simulation_backend.domain.simulation import Simulation
 
@@ -21,4 +21,7 @@ class ISimulationRepository(ABC):
         ...
 
     def add_body(self, body_id: str) -> None:
+        ...
+
+    def get_all(self, search: Optional[str]) -> List[Simulation]:
         ...
