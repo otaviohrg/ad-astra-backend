@@ -11,6 +11,9 @@ from astronomical_simulation_backend.container import ApplicationContainer
 from astronomical_simulation_backend.infrastructure.api.simulation_schema import (
     SimulationSchema,
 )
+from astronomical_simulation_backend.infrastructure.api.celestial_body_schema import (
+    CelestialBodySchema,
+)
 
 simulation_service: SimulationService = Provide[
     ApplicationContainer.simulation_service
@@ -29,6 +32,17 @@ async def list_simulations() -> List[SimulationSchema]:
     return [
         SimulationSchema(**asdict(simulation))
         for simulation in simulations
+    ]
+
+
+@router.get("/list_simulation_bodies/", response_model=List[CelestialBodySchema])
+async def list_celestial_bodies(
+    simulation_id: str
+) -> List[CelestialBodySchema]:
+    celestial_bodies = simulation_service.get_all_bodies(simulation_id)
+    return [
+        CelestialBodySchema(**asdict(body))
+        for body in celestial_bodies
     ]
 
 

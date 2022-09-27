@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Dict, Optional, List
 
 from astronomical_simulation_backend.domain.simulation import Simulation
+from astronomical_simulation_backend.domain.celestial_body import CelestialBody
 from astronomical_simulation_backend.domain.simulation_repository import (
     ISimulationRepository,
 )
@@ -29,6 +30,9 @@ class SimulationService:
 
     def get_all(self) -> List[Simulation]:
         return self.simulation_repository.get_all()
+
+    def get_all_bodies(self, simulation_id: str) -> List[CelestialBody]:
+        return self.celestial_body_repository.get_all(simulation_id)
 
     def run(self, duration: float, simulation_id: str) -> None:
         t = 0.0
