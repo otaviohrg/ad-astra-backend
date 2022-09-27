@@ -38,6 +38,7 @@ class SimulationService:
         t = 0.0
         celestial_bodies = self.celestial_body_repository.get_all(simulation_id)
         degree, k = self.simulation_repository.get(simulation_id).get_parameters()
+        self.simulation_repository.get(simulation_id).change_state("RUNNING")
         while t < duration:
             for body in celestial_bodies:
                 body.set_velocity(celestial_bodies, degree, k)
@@ -47,3 +48,4 @@ class SimulationService:
             t += SAMPLE_TIME
         for body in celestial_bodies:
             self.celestial_body_repository.update_from_object(body)
+        self.simulation_repository.get(simulation_id).change_state("STOPPED")
