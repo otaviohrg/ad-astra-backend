@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Optional, List
+from typing import Dict, List
 
 from astronomical_simulation_backend.domain.simulation import Simulation
 from astronomical_simulation_backend.domain.celestial_body import CelestialBody
