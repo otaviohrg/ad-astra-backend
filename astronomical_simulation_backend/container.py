@@ -32,7 +32,7 @@ class ApplicationContainer(containers.DeclarativeContainer):
         celestial_body_repository=celestial_body_repository
     )
 
-    simulation_repository = providers.Factory(
+    simulation_service = providers.Factory(
         SimulationService,
         celestial_body_repository=celestial_body_repository,
         simulation_repository=simulation_repository
