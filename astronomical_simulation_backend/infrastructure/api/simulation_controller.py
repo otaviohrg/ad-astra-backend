@@ -69,3 +69,13 @@ async def delete_simulation(simulation_id: str) -> None:
 @router.patch("/edit_simulation/")
 async def edit_simulation(params: Dict[str, str]) -> None:
     simulation_service.edit_entry(params)
+
+
+@router.get("/run_simulation/", response_model=List[CelestialBodySchema])
+async def run_simulation(duration: float, simulation_id: str) -> List[CelestialBodySchema]:
+    simulation_service.run(duration, simulation_id)
+    celestial_bodies = simulation_service.get_all_bodies(simulation_id)
+    return [
+        CelestialBodySchema(**asdict(body))
+        for body in celestial_bodies
+    ]
