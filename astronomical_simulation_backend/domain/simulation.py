@@ -31,3 +31,7 @@ class Simulation:
 
     def get_parameters(self) -> (float, float):
         return self.k, self.degree
+
+    def change_state(self, state: str) -> None:
+        self.status = state
+
