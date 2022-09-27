@@ -55,7 +55,7 @@ class CelestialBodyPickleRepository(ICelestialBodyRepository):
             with open(entry_file_path, mode="rb") as entry_file:
                 entry: CelestialBody = pickle.load(entry_file)
                 if search:
-                    if search in entry.name:
+                    if search in entry.simulation_id:
                         entries.append(entry)
                 else:
                     entries.append(entry)
