@@ -17,5 +17,5 @@ class ISimulationRepository(ABC):
     def edit(self, content: Dict[str, str]) -> None:
         ...
 
-    def get_all(self, search: Optional[str]) -> List[Simulation]:
+    def get_all(self) -> List[Simulation]:
         ...

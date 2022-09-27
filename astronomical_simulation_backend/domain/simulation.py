@@ -19,8 +19,15 @@ class Simulation:
             created_at=datetime.utcnow(),
             k=float(params["k"]),
             degree=float(params["degree"]),
-            status="STOPPED"
+            status="CREATED"
         )
 
-    def get_parameters(self):
+    def update_from_content(self, params: Dict[str, str]) -> None:
+        for key in params.keys():
+            if key == "k":
+                self.k = float(params[key])
+            if key == "degree":
+                self.degree = float(params[key])
+
+    def get_parameters(self) -> (float, float):
         return self.k, self.degree
