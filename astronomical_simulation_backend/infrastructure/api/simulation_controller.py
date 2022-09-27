@@ -68,4 +68,4 @@ async def delete_simulation(simulation_id: str) -> None:
 
 @router.patch("/edit_celestial_body/")
 async def edit_simulation(params: Dict[str, str]) -> None:
-    return simulation_service.edit_entry(params)
+    simulation_service.edit_entry(params)
