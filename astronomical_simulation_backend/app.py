@@ -26,6 +26,8 @@ def init() -> FastAPI:
     # init Database
     container.configuration.storage_dir.from_env("SIMULATION_STORAGE_DIR", "/tmp/astronomical_simulation")
     Path(container.configuration.storage_dir()).mkdir(parents=True, exist_ok=True)
+    Path(container.configuration.storage_dir() + "/celestial_bodies").mkdir(parents=True, exist_ok=True)
+    Path(container.configuration.storage_dir() + "/simulation").mkdir(parents=True, exist_ok=True)
 
     # Init API and attach the container
     app = FastAPI()
