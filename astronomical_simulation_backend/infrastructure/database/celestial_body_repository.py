@@ -49,6 +49,14 @@ class CelestialBodyPickleRepository(ICelestialBodyRepository):
         with open(Path(self.storage_dir + "/celestial_bodies") / entry_id, mode="wb") as entry_file:
             pickle.dump(entry, entry_file)
 
+    def update_from_object(self, celestial_body: CelestialBody):
+        try:
+            entry_id = celestial_body.id
+        except Exception:
+            raise EntryIdNotIncluded()
+        with open(Path(self.storage_dir + "/celestial_bodies") / entry_id, mode="wb") as entry_file:
+            pickle.dump(celestial_body, entry_file)
+
     def get_all(self, search: Optional[str]) -> List[CelestialBody]:
         entries: List[CelestialBody] = []
         for entry_file_path in Path(self.storage_dir + "/celestial_bodies").iterdir():

@@ -45,3 +45,5 @@ class SimulationService:
             for body in celestial_bodies:
                 body.add_position_to_trajectory()
             t += SAMPLE_TIME
+        for body in celestial_bodies:
+            self.celestial_body_repository.update_from_object(body)
