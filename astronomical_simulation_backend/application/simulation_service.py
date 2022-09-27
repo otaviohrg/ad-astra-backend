@@ -27,8 +27,8 @@ class SimulationService:
     def edit_entry(self, content: Dict[str, str]) -> None:
         self.simulation_repository.edit(content)
 
-    def get_all(self, search: Optional[str] = None) -> List[Simulation]:
-        return self.simulation_repository.get_all(search)
+    def get_all(self) -> List[Simulation]:
+        return self.simulation_repository.get_all()
 
     def run(self, duration: float, simulation_id: str) -> None:
         t = 0.0
