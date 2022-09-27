@@ -17,8 +17,8 @@ celestial_body_service: CelestialBodyService = Provide[
 ]
 
 router = APIRouter(
-    prefix="/astronomical_simulation",
-    tags=["AstronomicalSimulation"],
+    prefix="/astronomical_simulation/celestial_body",
+    tags=["AstronomicalSimulation", "CelestialBody"],
     responses={404: {"description": "Not found"}},
 )
 
