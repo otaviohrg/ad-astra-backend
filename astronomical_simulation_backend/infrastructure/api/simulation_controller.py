@@ -7,6 +7,9 @@ from fastapi import APIRouter
 from astronomical_simulation_backend.application.simulation_service import (
     SimulationService,
 )
+from astronomical_simulation_backend.application.celestial_body_service import (
+    CelestialBodyService,
+)
 from astronomical_simulation_backend.container import ApplicationContainer
 from astronomical_simulation_backend.infrastructure.api.simulation_schema import (
     SimulationSchema,
@@ -17,6 +20,10 @@ from astronomical_simulation_backend.infrastructure.api.celestial_body_schema im
 
 simulation_service: SimulationService = Provide[
     ApplicationContainer.simulation_service
+]
+
+celestial_body_service: CelestialBodyService = Provide[
+    ApplicationContainer.celestial_body_service
 ]
 
 router = APIRouter(
@@ -53,7 +60,10 @@ async def create_simulation(params: Dict[str, str]) -> str:
 
 @router.patch("/delete_simulation/")
 async def delete_simulation(simulation_id: str) -> None:
-    return simulation_service.remove_entry(simulation_id)
+    celestial_bodies = celestial_body_service.get_all(simulation_id)
+    simulation_service.remove_entry(simulation_id)
+    for body in celestial_bodies:
+        celestial_body_service.remove_entry(body.id)
 
 
 @router.patch("/edit_celestial_body/")
