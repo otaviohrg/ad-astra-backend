@@ -21,3 +21,6 @@ class Simulation:
             degree=float(params["degree"]),
             status="STOPPED"
         )
+
+    def get_parameters(self):
+        return self.k, self.degree
