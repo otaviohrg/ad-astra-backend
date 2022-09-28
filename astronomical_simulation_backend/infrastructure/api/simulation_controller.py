@@ -4,23 +4,21 @@ from typing import Dict, List
 from dependency_injector.wiring import Provide
 from fastapi import APIRouter
 
-from astronomical_simulation_backend.application.simulation_service import (
-    SimulationService,
-)
 from astronomical_simulation_backend.application.celestial_body_service import (
     CelestialBodyService,
 )
-from astronomical_simulation_backend.container import ApplicationContainer
-from astronomical_simulation_backend.infrastructure.api.simulation_schema import (
-    SimulationSchema,
+from astronomical_simulation_backend.application.simulation_service import (
+    SimulationService,
 )
+from astronomical_simulation_backend.container import ApplicationContainer
 from astronomical_simulation_backend.infrastructure.api.celestial_body_schema import (
     CelestialBodySchema,
 )
+from astronomical_simulation_backend.infrastructure.api.simulation_schema import (
+    SimulationSchema,
+)
 
-simulation_service: SimulationService = Provide[
-    ApplicationContainer.simulation_service
-]
+simulation_service: SimulationService = Provide[ApplicationContainer.simulation_service]
 
 celestial_body_service: CelestialBodyService = Provide[
     ApplicationContainer.celestial_body_service
@@ -36,21 +34,13 @@ router = APIRouter(
 @router.get("/list_simulations/", response_model=List[SimulationSchema])
 async def list_simulations() -> List[SimulationSchema]:
     simulations = simulation_service.get_all()
-    return [
-        SimulationSchema(**asdict(simulation))
-        for simulation in simulations
-    ]
+    return [SimulationSchema(**asdict(simulation)) for simulation in simulations]
 
 
 @router.get("/list_simulation_bodies/", response_model=List[CelestialBodySchema])
-async def list_celestial_bodies(
-    simulation_id: str
-) -> List[CelestialBodySchema]:
+async def list_celestial_bodies(simulation_id: str) -> List[CelestialBodySchema]:
     celestial_bodies = simulation_service.get_all_bodies(simulation_id)
-    return [
-        CelestialBodySchema(**asdict(body))
-        for body in celestial_bodies
-    ]
+    return [CelestialBodySchema(**asdict(body)) for body in celestial_bodies]
 
 
 @router.post("/create_simulation/")
@@ -72,10 +62,9 @@ async def edit_simulation(params: Dict[str, str]) -> None:
 
 
 @router.get("/run_simulation/", response_model=List[CelestialBodySchema])
-async def run_simulation(duration: float, simulation_id: str) -> List[CelestialBodySchema]:
+async def run_simulation(
+    duration: float, simulation_id: str
+) -> List[CelestialBodySchema]:
     simulation_service.run(duration, simulation_id)
     celestial_bodies = simulation_service.get_all_bodies(simulation_id)
-    return [
-        CelestialBodySchema(**asdict(body))
-        for body in celestial_bodies
-    ]
+    return [CelestialBodySchema(**asdict(body)) for body in celestial_bodies]

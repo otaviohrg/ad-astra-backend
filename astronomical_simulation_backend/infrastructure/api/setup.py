@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from astronomical_simulation_backend.container import ApplicationContainer
 from astronomical_simulation_backend.infrastructure.api import (
     celestial_body_controller,
-    simulation_controller
+    simulation_controller,
 )
 
 
@@ -13,9 +13,4 @@ def setup(app: FastAPI, container: ApplicationContainer) -> None:
     app.include_router(simulation_controller.router)
 
     # Inject dependencies
-    container.wire(
-        modules=[
-            celestial_body_controller,
-            simulation_controller
-        ]
-    )
+    container.wire(modules=[celestial_body_controller, simulation_controller])

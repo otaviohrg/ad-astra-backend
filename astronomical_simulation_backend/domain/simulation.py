@@ -1,7 +1,7 @@
 import uuid
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Tuple
 
 
 @dataclass
@@ -19,7 +19,7 @@ class Simulation:
             created_at=datetime.utcnow(),
             k=float(params["k"]),
             degree=float(params["degree"]),
-            status="CREATED"
+            status="CREATED",
         )
 
     def update_from_content(self, params: Dict[str, str]) -> None:
@@ -29,9 +29,8 @@ class Simulation:
             if key == "degree":
                 self.degree = float(params[key])
 
-    def get_parameters(self) -> (float, float):
+    def get_parameters(self) -> Tuple[float, float]:
         return self.k, self.degree
 
     def change_state(self, state: str) -> None:
         self.status = state
-

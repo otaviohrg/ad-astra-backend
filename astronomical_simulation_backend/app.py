@@ -1,19 +1,21 @@
 import logging
 from pathlib import Path
 
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 
+from astronomical_simulation_backend import __version__
 from astronomical_simulation_backend.container import ApplicationContainer
 from astronomical_simulation_backend.infrastructure.api.setup import setup
-from astronomical_simulation_backend import __version__
 
 
 def init() -> FastAPI:
     container = ApplicationContainer()
 
     # Setup logging
-    container.configuration.log_level.from_env("ASTRONOMICAL_SIMULATION_LOG_LEVEL", "INFO")
+    container.configuration.log_level.from_env(
+        "ASTRONOMICAL_SIMULATION_LOG_LEVEL", "INFO"
+    )
 
     str_level = container.configuration.log_level()
     numeric_level = getattr(logging, str_level.upper(), None)
@@ -24,10 +26,16 @@ def init() -> FastAPI:
     logger.info("Logging level is set to %s" % str_level.upper())
 
     # init Database
-    container.configuration.storage_dir.from_env("SIMULATION_STORAGE_DIR", "/tmp/astronomical_simulation")
+    container.configuration.storage_dir.from_env(
+        "SIMULATION_STORAGE_DIR", "/tmp/astronomical_simulation"
+    )
     Path(container.configuration.storage_dir()).mkdir(parents=True, exist_ok=True)
-    Path(container.configuration.storage_dir() + "/celestial_bodies").mkdir(parents=True, exist_ok=True)
-    Path(container.configuration.storage_dir() + "/simulation").mkdir(parents=True, exist_ok=True)
+    Path(container.configuration.storage_dir() + "/celestial_bodies").mkdir(
+        parents=True, exist_ok=True
+    )
+    Path(container.configuration.storage_dir() + "/simulation").mkdir(
+        parents=True, exist_ok=True
+    )
 
     # Init API and attach the container
     app = FastAPI()
@@ -47,7 +55,9 @@ def start() -> None:
     logger.info(f"Astronomical Simulation app version: {__version__}")
     app = init()
     uvicorn.run(
-        app, host="0.0.0.0", port=8080,
+        app,
+        host="0.0.0.0",
+        port=8080,
     )
 
 

@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional
 
 from astronomical_simulation_backend.domain.celestial_body import CelestialBody
 

@@ -1,15 +1,15 @@
 from dataclasses import dataclass
 from typing import Dict, List
 
-from astronomical_simulation_backend.domain.simulation import Simulation
 from astronomical_simulation_backend.domain.celestial_body import CelestialBody
+from astronomical_simulation_backend.domain.celestial_body_repository import (
+    ICelestialBodyRepository,
+)
+from astronomical_simulation_backend.domain.constants import SAMPLE_TIME
+from astronomical_simulation_backend.domain.simulation import Simulation
 from astronomical_simulation_backend.domain.simulation_repository import (
     ISimulationRepository,
 )
-from astronomical_simulation_backend.domain.celestial_body_repository import (
-    ICelestialBodyRepository
-)
-from astronomical_simulation_backend.domain.constants import SAMPLE_TIME
 
 
 @dataclass
